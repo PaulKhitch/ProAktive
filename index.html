@@ -3,813 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ПроАктив — Цифровой Управляющий Недвижимостью</title>
-    <!-- Подключаем шрифт Inter для современного вида -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>ПроАктив — AI Операционная система недвижимости</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Стили (CSS из предоставленного файла css.txt) -->
     <style>
-        /* --- СБРОС И БАЗА --- */
+        /* --- 1. ГЛОБАЛЬНЫЕ СТИЛИ --- */
+        :root {
+            --bg-dark: #0A0F1C;
+            --bg-panel: #151B2B;
+            --primary: #3B82F6;
+            --primary-hover: #2563EB;
+            --accent: #8B5CF6;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #10B981;
+            --danger: #EF4444;
+        }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --bg-main: #0b0e14;
-            --primary: #3b82f6;
-            --accent: #8b5cf6;
-            --text-white: #ffffff;
-            --text-gray: #94a3b8;
-            --glass: rgba(30, 41, 59, 0.7);
-            --border: rgba(255,255,255,0.1);
-        }
-
         body {
-            background-color: var(--bg-main);
-            color: var(--text-white);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        a { text-decoration: none; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* ФОНОВЫЕ ЭФФЕКТЫ */
+        .glow-bg {
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(120px); z-index: -1; opacity: 0.15; pointer-events: none;
+        }
+        .glow-1 { top: -100px; left: -100px; background: var(--primary); }
+        .glow-2 { bottom: -100px; right: -100px; background: var(--accent); }
+
+        /* СТЕКЛО */
+        .glass {
+            background: rgba(21, 27, 43, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
         }
 
-        /* ФОНОВЫЕ ПЯТНА (Градиенты) */
-
-        .bg-gradient-orb {
-            position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.2;
-        }
-
-        .top-left { top: -100px; left: -100px; background: radial-gradient(circle, var(--accent), transparent 70%); }
-        .bottom-right { bottom: -100px; right: -100px; background: radial-gradient(circle, var(--primary), transparent 70%); }
-
-        /* --- НАВИГАЦИЯ --- */
-
+        /* --- 2. НАВИГАЦИЯ --- */
         .navbar {
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 16px 0; border-bottom: 1px solid var(--border);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; }
+        .logo-icon {
+            width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;
         }
 
-        .nav-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-white);
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-box {
-            background-color: var(--primary);
-            color: var(--text-white);
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            margin-right: 8px;
-        }
-
-        .nav-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            margin-left: 30px;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* --- КНОПКИ --- */
+        .nav-menu a { color: var(--text-muted); margin: 0 15px; font-size: 0.95rem; }
+        .nav-menu a:hover { color: white; }
 
         .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.2s;
-            border: 1px solid transparent;
-            display: inline-block;
-            text-align: center;
+            padding: 10px 24px; border-radius: 8px; font-weight: 600; border: none; cursor: pointer; display: inline-block;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+        /* --- 3. HERO SECTION --- */
+        .hero { padding: 140px 0 80px; text-align: center; }
+        .badge {
+            display: inline-block; padding: 6px 16px; background: rgba(59, 130, 246, 0.1);
+            color: #60A5FA; border-radius: 20px; font-size: 0.85rem; margin-bottom: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+        .text-gradient {
+            background: linear-gradient(to right, #60A5FA, #C084FC);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; }
+
+        /* --- 4. ИНТЕРФЕЙС ПРИЛОЖЕНИЯ (CSS ONLY) --- */
+        .interface-wrapper {
+            margin-top: 60px; perspective: 1000px;
+        }
+        .app-window {
+            background: var(--bg-dark); border-radius: 12px; border: 1px solid var(--border);
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+            overflow: hidden; max-width: 1000px; margin: 0 auto;
+            transform: rotateX(2deg); transition: transform 0.5s;
+        }
+        .app-window:hover { transform: rotateX(0deg); }
+
+        /* Шапка окна */
+        .window-header {
+            background: var(--bg-panel); padding: 12px 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border);
+        }
+        .traffic-lights { display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #EF4444; } .yellow { background: #EAB308; } .green { background: #22C55E; }
+        .address-bar {
+            background: var(--bg-dark); flex: 1; height: 28px; border-radius: 6px;
+            display: flex; align-items: center; padding: 0 12px; font-size: 0.8rem; color: var(--text-muted); font-family: monospace;
         }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--text-white);
-        }
-
-        .btn-primary:hover {
-            background-color: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-        }
+        /* Тело приложения */
+        .window-body { display: flex; height: 550px; text-align: left; }
         
-        /* --- HERO --- */
-
-        .hero-section {
-            padding: 120px 0;
-            text-align: center;
+        /* Сайдбар */
+        .sidebar {
+            width: 220px; background: var(--bg-panel); border-right: 1px solid var(--border);
+            padding: 20px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;
         }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            line-height: 1.1;
+        .menu-item {
+            padding: 10px 12px; color: var(--text-muted); border-radius: 6px; font-size: 0.9rem; cursor: pointer; display: flex; gap: 10px;
         }
+        .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.05); color: white; }
+        .menu-icon { opacity: 0.7; }
 
-        .hero-section p {
-            font-size: 1.3rem;
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
+        /* Контентная область */
+        .main-view { flex: 1; padding: 30px; overflow-y: auto; background: var(--bg-dark); }
+        .view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .view-title h3 { font-size: 1.5rem; margin-bottom: 5px; }
+        .view-title span { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Сетка дашборда */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card {
+            background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
         }
+        .card-wide { grid-column: span 2; }
+        .card-full { grid-column: span 3; }
 
-        .hero-actions .btn {
-            margin: 0 10px;
-            font-size: 1.1rem;
+        .kpi-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; display: block; }
+        .kpi-value { font-size: 1.8rem; font-weight: 700; color: white; }
+        .trend { font-size: 0.8rem; margin-top: 5px; display: inline-block; }
+        .trend.up { color: var(--success); } .trend.down { color: var(--danger); }
+
+        /* CSS График */
+        .chart-container {
+            height: 150px; display: flex; align-items: flex-end; gap: 12px; margin-top: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
         }
+        .bar { flex: 1; background: #334155; border-radius: 4px 4px 0 0; transition: height 1s ease; position: relative; }
+        .bar:hover { background: var(--primary); }
+        .bar.active { background: var(--primary); }
+        .chart-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-muted); font-size: 0.75rem; }
 
-        /* --- FEATURE CARDS --- */
-
-        .features-section { padding: 80px 0; }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 50px;
+        /* Таблица */
+        .table-row {
+            display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; align-items: center;
         }
-
-        .features-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
+        .table-head { color: var(--text-muted); font-size: 0.8rem; border-bottom: 1px solid var(--border); }
+        .status-badge {
+            padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; background: rgba(255,255,255,0.1); color: var(--text-muted); text-align: center; width: fit-content;
         }
+        .status-badge.paid { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 
-        .feature-card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            color: var(--text-gray);
-            font-size: 1rem;
-        }
-
-        /* --- ИМИТАЦИЯ ИНТЕРФЕЙСА (DEMO) --- */
-
-        .demo-section {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .screenshot-placeholder {
-            background: #1e293b;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            height: 400px;
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-gray);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .screenshot-placeholder::before {
-            content: 'Главная панель. Аналитика P&L, метрики TCO и ROI, уведомления об аномалиях.';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        /* --- ТАРИФЫ (PRICING) --- */
-
-        .pricing-section {
-            padding: 80px 0;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
+        /* --- 5. ТАРИФЫ --- */
+        .pricing { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .price-card {
-            background: #1e293b;
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            text-align: center;
+            background: var(--bg-panel); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; transition: 0.3s;
         }
-        
-        .price-card.featured {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        .price-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
+        .price-card.featured { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); position: relative; }
+        .best-tag {
+            position: absolute; top: 12px; right: 12px; background: var(--primary); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: 700;
         }
 
-        .price-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
+        .price { font-size: 3rem; font-weight: 800; margin: 20px 0; color: white; }
+        .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        .features-list { text-align: left; margin: 30px 0; }
+        .features-list li { padding: 8px 0; color: var(--text-muted); font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .features-list li::before { content: "✓"; color: var(--primary); margin-right: 10px; font-weight: bold; }
 
-        .price-card .price {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 20px;
+        /* --- 6. КОНТАКТЫ --- */
+        .contact-box {
+            background: var(--bg-panel); border: 1px solid var(--border); border-radius: 16px; padding: 60px; text-align: center; max-width: 700px; margin: 0 auto;
         }
+        .form-group { text-align: left; margin-bottom: 15px; }
+        input {
+            width: 100%; padding: 12px 16px; background: var(--bg-dark); border: 1px solid var(--border);
+            border-radius: 8px; color: white; margin-top: 5px;
+        }
+        input:focus { outline: none; border-color: var(--primary); }
 
-        .price-card .price small {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text-gray);
-        }
-
-        .price-card ul {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 30px;
-            padding: 0;
-        }
-
-        .price-card ul li {
-            padding: 8px 0;
-            color: var(--text-gray);
-            display: flex;
-            align-items: center;
-        }
-
-        .price-card ul li::before {
-            content: '✓';
-            color: #10b981; /* Green check */
-            font-weight: 700;
-            margin-right: 10px;
-        }
-        
-        /* --- КОНТАКТЫ/CTA (CONTACT) --- */
-
-        .contact-section {
-            padding: 80px 0 100px;
-            text-align: center;
-        }
-
-        .contact-card {
-            background: #1e293b;
-            padding: 60px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-card h2 {
-            margin-bottom: 15px;
-        }
-        
-        .contact-card p {
-            color: var(--text-gray);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        /* --- FOOTER --- */
-        
-        .footer {
-            padding: 30px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        /* --- МОДАЛЬНЫЕ ОКНА (для имитации интерфейса) --- */
-        
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none; /* Скрыто по умолчанию */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            animation: fadeIn 0.3s;
-            border: 1px solid var(--primary);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            color: var(--text-gray);
-            cursor: pointer;
-            line-height: 1;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--text-white);
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: #0f172a;
-            color: var(--text-white);
-            font-size: 1rem;
-        }
-        
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-        }
-        
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 30px;
-        }
-        
-        .upload-area {
-            background: #0f172a;
-            border: 2px dashed #341555; 
-            border-radius: 12px; 
-            height: 200px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            position: relative;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        
-        .file-icon { font-size: 3rem; color: #f87171; margin-bottom: 10px; }
-        
-        .scan-bar {
-            position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--primary);
-            box-shadow: 0 0 10px var(--primary); animation: scan 3s infinite linear;
-        }
-        
-        @keyframes scan { 0% {top: 0;} 100% {top: 100%;} }
-        
-        .badge-ai { color: #c084fc; background: rgba(192,132,252,0.1); display: inline-block; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem; margin-top: 10px;}
-
-        /* Медиа-запросы для адаптивности */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-row { justify-content: center; }
-            .hero-section h1 { font-size: 2.5rem; }
-            .hero-section p { font-size: 1rem; }
-            .hero-actions { display: flex; flex-direction: column; gap: 10px; }
-            .hero-actions .btn { margin: 0; }
-            .contact-card { padding: 40px 20px; }
-            .features-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            .nav-menu { display: none; }
+            .sidebar { display: none; } /* Скрываем сайдбар на моб для места */
+            .window-body { height: auto; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .card-wide, .card-full { grid-column: span 1; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Графические шары на фоне -->
-    <div class="bg-gradient-orb top-left"></div>
-    <div class="bg-gradient-orb bottom-right"></div>
+    <!-- ФОН -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
 
-    <!-- Навигационная панель -->
+    <!-- НАВИГАЦИЯ -->
     <nav class="navbar glass">
-        <div class="container nav-row">
+        <div class="container nav-content">
             <div class="logo">
-                <div class="logo-box">P</div>
+                <div class="logo-icon">P</div>
                 ПроАктив
             </div>
-            <!-- Ссылки скрыты на мобильных, но присутствуют для десктопа -->
-            <div class="nav-links">
-                <a href="#features">Функции</a>
-                <a href="#demo">Интерфейс</a>
+            <div class="nav-menu">
+                <a href="#product">Продукт</a>
                 <a href="#pricing">Тарифы</a>
-                <a href="#contact" class="btn btn-primary">Попробовать</a>
+                <a href="#contact">Контакты</a>
             </div>
+            <a href="#contact" class="btn btn-primary">Демо доступ</a>
         </div>
     </nav>
 
-    <!-- 1. Главный экран (HERO) -->
-    <section class="hero-section">
+    <!-- HERO -->
+    <section class="hero">
         <div class="container">
-            <!-- Искусственный Интеллект для Управления Коммерческой Недвижимостью -->
-            <h1>ПроАктив. Цифровой Управляющий 24/7.</h1>
-            <!-- Сосредоточьтесь на стратегии. ИИ возьмет на себя 80% рутинного контроля, анализа и финансового планирования. -->
+            <div class="badge">Версия 4.4: AI-аналитика расходов</div>
+            <h1>Цифровой двойник <br> <span class="text-gradient">вашей недвижимости</span></h1>
             <p>
-                Сократите операционные расходы и получите прозрачный P&L. Мы автоматизируем финансовый анализ, документооборот и управление объектом.
+                Забудьте про Excel. Управляйте портфелем активов, контролируйте OPEX/CAPEX и автоматизируйте документооборот в единой системе.
             </p>
-            <div class="hero-actions">
-                <a href="#contact" class="btn btn-primary">Начать Бесплатно</a>
-                <button id="showDemoBtn" class="btn btn-outline">Смотреть интерфейс</button>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary btn-lg" style="padding: 14px 32px; font-size: 1.1rem;">Начать бесплатно</a>
+                <a href="#pricing" class="btn btn-outline btn-lg" style="padding: 14px 32px; font-size: 1.1rem;">Смотреть цены</a>
+            </div>
+
+            <!-- MOCKUP ИНТЕРФЕЙСА -->
+            <div class="interface-wrapper">
+                <div class="app-window">
+                    <div class="window-header">
+                        <div class="traffic-lights">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="address-bar">app.proactive.com/dashboard/overview</div>
+                    </div>
+                    <div class="window-body">
+                        <!-- САЙДБАР -->
+                        <div class="sidebar">
+                            <div class="menu-item active"><span class="menu-icon">📊</span> Дашборд</div>
+                            <div class="menu-item"><span class="menu-icon">🏢</span> Объекты</div>
+                            <div class="menu-item"><span class="menu-icon">💰</span> Финансы</div>
+                            <div class="menu-item"><span class="menu-icon">📄</span> Документы</div>
+                            <div class="menu-item"><span class="menu-icon">⚙️</span> Настройки</div>
+                        </div>
+                        
+                        <!-- ГЛАВНОЕ ОКНО -->
+                        <div class="main-view">
+                            <div class="view-header">
+                                <div class="view-title">
+                                    <h3>Сводка по портфелю</h3>
+                                    <span>Сентябрь 2024 • Все объекты</span>
+                                </div>
+                                <button class="btn btn-primary" style="font-size:0.8rem; padding: 8px 16px;">+ Добавить объект</button>
+                            </div>
+
+                            <div class="dashboard-grid">
+                                <!-- KPI -->
+                                <div class="card">
+                                    <span class="kpi-label">Чистая прибыль</span>
+                                    <div class="kpi-value">4.2 M₽</div>
+                                    <span class="trend up">▲ +12% YoY</span>
+                                </div>
+                                <div class="card">
+                                    <span class="kpi-label">Расходы (OPEX)</span>
+                                    <div class="kpi-value">850 K₽</div>
+                                    <span class="trend down">▼ -5% (Оптимизация)</span>
+                                </div>
+                                <div class="card">
+                                    <span class="kpi-label">Заполняемость</span>
+                                    <div class="kpi-value">96%</div>
+                                    <span class="trend up">Стабильно</span>
+                                </div>
+
+                                <!-- ГРАФИК -->
+                                <div class="card card-wide">
+                                    <span class="kpi-label">Динамика Cashflow</span>
+                                    <div class="chart-container">
+                                        <div class="bar" style="height: 40%"></div>
+                                        <div class="bar" style="height: 60%"></div>
+                                        <div class="bar" style="height: 45%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                        <div class="bar active" style="height: 90%"></div>
+                                        <div class="bar" style="height: 65%"></div>
+                                    </div>
+                                    <div class="chart-labels">
+                                        <span>Апр</span><span>Май</span><span>Июн</span><span>Июл</span><span>Авг</span><span>Сен</span>
+                                    </div>
+                                </div>
+
+                                <!-- ТАБЛИЦА -->
+                                <div class="card card-full">
+                                    <span class="kpi-label" style="margin-bottom: 15px;">Последние операции</span>
+                                    <div class="table-row table-head">
+                                        <span>Дата</span><span>Категория</span><span>Сумма</span><span>Статус</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span>05.09</span><span>Аренда: Офис А</span><span style="color:var(--success)">+450 000 ₽</span><span class="status-badge paid">Оплачено</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span>04.09</span><span>Клининг</span><span>-25 000 ₽</span><span class="status-badge">В обработке</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span>03.09</span><span>Ремонт HVAC</span><span>-12 500 ₽</span><span class="status-badge paid">Оплачено</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. Функции (FEATURES) -->
-    <section id="features" class="features-section">
+    <!-- PRICING -->
+    <section id="pricing" class="pricing">
         <div class="container">
-            <h2 class="section-title">Система, которая работает за вас</h2>
-            <div class="features-grid">
-                
-                <!-- AI Анализ -->
-                <div class="feature-card">
-                    <span class="feature-icon">
-                        <!-- Иконка Аналитики (SVG) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart"><path d="M3 3v18h18"/><path d="M7 16v3"/><path d="M12 13v6"/><path d="M17 9v10"/><path d="M4 11l4-4 4 4 4-4 4 4"/></svg>
-                    </span>
-                    <h3>Интеллектуальный анализ</h3>
-                    <p>Мгновенный расчет P&L, TCO и ROI. Система самостоятельно выявляет финансовые аномалии и риски, предотвращая перерасход. Только данные, без догадок.</p>
-                </div>
-                
-                <!-- Smart Upload -->
-                <div class="feature-card">
-                    <span class="feature-icon">
-                        <!-- Иконка Документа (SVG) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                    </span>
-                    <h3>Автоматизация документов</h3>
-                    <p>Загружайте сканы или фото счетов и актов. ИИ распознает и внесет данные о расходах, дате и категории в систему за считанные секунды. Минус ручной ввод.</p>
-                </div>
-
-                <!-- Контроль -->
-                <div class="feature-card">
-                    <span class="feature-icon">
-                        <!-- Иконка Защиты/Щита (SVG) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-                    </span>
-                    <h3>Прозрачный финансовый контур</h3>
-                    <p>Полный контроль CAPEX, OPEX и доходов. Система ведет историю транзакций, позволяя отслеживать динамику и принимать обоснованные решения по обслуживанию.</p>
-                </div>
-
+            <div class="section-header">
+                <h2>Прозрачные тарифы</h2>
+                <p style="color: var(--text-muted);">Платите только за то, что реально используете</p>
             </div>
-        </div>
-    </section>
-
-    <!-- 3. Интерфейс (DEMO) -->
-    <section id="demo" class="demo-section">
-        <div class="container">
-            <h2 class="section-title">Интерфейс, созданный для результата</h2>
-            <p style="max-width: 700px; margin: 0 auto 20px; color: var(--text-gray);">
-                Простой и понятный дашборд с ключевыми метриками (P&L, TCO, ROI) всегда под рукой.
-            </p>
-            <div class="screenshot-placeholder">
-                <div style="padding: 20px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);">
-                    Нажмите "Смотреть интерфейс" для демонстрации возможностей.
-                </div>
-            </div>
-            <a href="#contact" class="btn btn-primary" style="margin-top: 40px;">Запросить личную демонстрацию</a>
-        </div>
-    </section>
-
-    <!-- 4. Тарифы (PRICING) -->
-    <section id="pricing" class="pricing-section">
-        <div class="container">
-            <h2 class="section-title">Лаконичные тарифы</h2>
             <div class="pricing-grid">
-                
-                <!-- Базовый -->
+                <!-- START -->
                 <div class="price-card">
-                    <h3>Базовый</h3>
-                    <p class="price">
-                        0 ₽ <small>/ месяц</small>
-                    </p>
-                    <ul>
-                        <li>Подключение 1 объекта</li>
-                        <li>Управление расходами и доходами</li>
-                        <li>Ручной ввод транзакций</li>
-                        <li>Базовая аналитика P&L</li>
+                    <h3>Старт</h3>
+                    <div class="price">0 ₽<span>/мес</span></div>
+                    <ul class="features-list">
+                        <li>1 объект недвижимости</li>
+                        <li>Ручной ввод данных</li>
+                        <li>Базовая P&L аналитика</li>
+                        <li>Экспорт в Excel</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Начать Бесплатно</a>
+                    <a href="#contact" class="btn btn-outline" style="width:100%">Попробовать</a>
                 </div>
                 
-                <!-- Профессиональный (Рекомендуемый) -->
+                <!-- PRO -->
                 <div class="price-card featured">
-                    <h3>Профессиональный</h3>
-                    <p class="price" style="color: var(--text-white);">
-                        1490 ₽ <small>/ объект / мес</small>
-                    </p>
-                    <ul>
-                        <li>Подключение до 10 объектов</li>
-                        <li>**Smart Upload (ИИ-распознавание)**</li>
-                        <li>Полный финансовый анализ (TCO, ROI, Cash Flow)</li>
-                        <li>Уведомления об аномалиях</li>
+                    <div class="best-tag">ХИТ</div>
+                    <h3>Бизнес</h3>
+                    <div class="price">1490 ₽<span>/объект</span></div>
+                    <ul class="features-list">
+                        <li>До 10 объектов</li>
+                        <li><b>Smart Upload (AI)</b></li>
+                        <li>Контроль аномалий в расходах</li>
+                        <li>Геоаналитика окружения</li>
                     </ul>
-                    <a href="#contact" class="btn btn-primary" style="width: 100%;">Выбрать Профессиональный</a>
+                    <a href="#contact" class="btn btn-primary" style="width:100%">Подключить</a>
                 </div>
-                
-                <!-- Корпоративный -->
+
+                <!-- ENTERPRISE -->
                 <div class="price-card">
-                    <h3>Корпоративный</h3>
-                    <p class="price">
-                        Индивидуально
-                    </p>
-                    <ul>
-                        <li>Неограниченное число объектов</li>
-                        <li>Интеграция с ERP/1C</li>
-                        <li>Управление заявками на обслуживание</li>
-                        <li>Выделенный менеджер</li>
+                    <h3>Enterprise</h3>
+                    <div class="price">Индивидуально</div>
+                    <ul class="features-list">
+                        <li>Неограниченное кол-во объектов</li>
+                        <li>On-premise установка</li>
+                        <li>Интеграция с 1С / SAP</li>
+                        <li>Личный менеджер 24/7</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Запросить Расчет</a>
+                    <a href="#contact" class="btn btn-outline" style="width:100%">Связаться</a>
                 </div>
-                
             </div>
         </div>
     </section>
 
-    <!-- 5. Контакты / CTA -->
-    <section id="contact" class="contact-section">
+    <!-- CONTACT -->
+    <section id="contact" style="padding-bottom: 100px;">
         <div class="container">
-            <div class="contact-card">
-                <h2 class="section-title" style="margin-bottom: 10px;">Начните управлять эффективно</h2>
-                <p>Получите доступ к тестовому периоду или запросите подробную презентацию для вашей управляющей компании.</p>
-                <form onsubmit="event.preventDefault(); alert('Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время!');" style="text-align: left;">
+            <div class="contact-box">
+                <h2 style="margin-bottom: 15px;">Начните оптимизацию сегодня</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Оставьте контакты, мы настроим демо-доступ под ваши задачи.</p>
+                <form id="leadForm">
                     <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" id="name" placeholder="Ваше имя" required />
+                        <input type="text" placeholder="Ваше имя" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-mail / Телефон</label>
-                        <input type="text" id="email" placeholder="mail@example.com" required />
+                        <input type="email" placeholder="Рабочий Email" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Отправить заявку</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 14px;">Получить доступ</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
+    <footer style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;">
         <div class="container">
-            &copy; 2024 ПроАктив. Цифровой Управляющий Недвижимостью.
+            &copy; 2024 ПроАктив. Все права защищены.
         </div>
     </footer>
 
-
-    <!-- ============================================= -->
-    <!-- Модальные окна для демонстрации функций (DEMO) -->
-    <!-- ============================================= -->
-    
-    <!-- Модальное окно: Smart Upload (ИИ-распознавание) -->
-    <div id="smartUploadModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2 style="margin-bottom: 20px;">Smart Upload: ИИ-распознавание</h2>
-            <div class="upload-area">
-                <div class="scan-bar"></div>
-                <div class="file-icon">📄</div>
-                <p style="color: var(--text-gray);">Перетащите скан или фото счета-фактуры сюда</p>
-                <p style="font-size: 0.9rem; color: #f87171;">ИЛИ КЛИКНИТЕ ДЛЯ ЗАГРУЗКИ</p>
-            </div>
-            <div class="ai-analysis" style="text-align: left;">
-                <p class="badge-ai">🤖 Анализ ИИ завершен</p>
-                <p style="margin-top: 10px;">**Найдено:** Расход (ОПЕКС)</p>
-                <p>**Сумма:** 12 500.00 ₽</p>
-                <p>**Дата:** 2024-09-03</p>
-                <p>**Категория:** Электричество</p>
-                <p style="color: #10b981; margin-top: 10px; font-weight: 600;">Готово к сохранению в один клик.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline modal-close">Отмена</button>
-                <button class="btn btn-primary">Сохранить Транзакцию</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно: Ручной ввод -->
-    <div id="addTransactionModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2 style="margin-bottom: 20px;">Ручной ввод транзакции</h2>
-            
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button class="btn btn-primary" id="btnTransExpense" style="flex: 1; padding: 10px; background: #991b1b; border: 1px solid #f87171;">Расход</button>
-                <button class="btn btn-outline" id="btnTransIncome" style="flex: 1; padding: 10px;">Доход</button>
-            </div>
-            
-            <div class="form-group">
-                <label for="transAmount">Сумма (₽)</label>
-                <input type="number" id="transAmount" placeholder="0.00" />
-            </div>
-            
-            <div class="form-group">
-                <label for="transCategory">Категория</label>
-                <select id="transCategory" class="fake-input" style="width: 100%; appearance: none; -webkit-appearance: none;">
-                    <option value="Аренда">Аренда</option>
-                    <option value="Электричество">Электричество</option>
-                    <option value="Охрана">Охрана</option>
-                    <option value="Кап. ремонт">Кап. ремонт (CAPEX)</option>
-                    <option value="Прочее">Прочее</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="transDate">Дата</label>
-                <input type="date" id="transDate" value="2024-09-03" />
-            </div>
-            
-            <div class="form-group">
-                <label for="transDescription">Описание</label>
-                <input type="text" id="transDescription" placeholder="Например: Арендная плата за октябрь" />
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-outline modal-close">Отмена</button>
-                <button class="btn btn-primary">Сохранить</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ============================================= -->
-    <!-- Скрипты (JS из предоставленного файла app.js) -->
-    <!-- ============================================= -->
-
     <script>
-        // --- 1. Элементы DOM (Получение ссылок на ключевые элементы) ---
-        const smartUploadModal = document.getElementById('smartUploadModal');
-        const addTransactionModal = document.getElementById('addTransactionModal');
-        // Элементы, которые могут быть в сайдбаре, но здесь имитируются для демонстрации
-        const btnSmartUpload = document.getElementById('btnSmartUpload');
-        const btnManualAdd = document.getElementById('btnManualAdd');
-
-        // --- 2. Управление UI (На основе логики showModal/hideAllModals) ---
-
-        /** Показывает модальное окно, устанавливая ему display: flex */
-        function showModal(modalElement) {
-            if (modalElement) {
-                // Убеждаемся, что все другие модальные окна скрыты, прежде чем показывать новое
-                hideAllModals();
-                modalElement.style.display = 'flex';
-            }
-        }
-
-        /** Скрывает все модальные окна, имеющие класс .modal */
-        function hideAllModals() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.style.display = 'none';
-            });
-        }
-
-        /** Инициализация даты для ручного ввода на текущую дату */
-        function initializeDate() {
-            const dateInput = document.getElementById('transDate');
-            if (dateInput) {
-                // Устанавливаем текущую дату в поле ввода HTML
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = String(today.getMonth() + 1).padStart(2, '0');
-                const day = String(today.getDate()).padStart(2, '0');
-                dateInput.value = `${year}-${month}-${day}`;
-            }
-        }
-
-        // --- 3. Инициализация и обработчики событий ---
-
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // Обработчик для кнопки Smart Upload (не используется в лендинге, но оставлен для полноты)
-            if (btnSmartUpload) {
-                btnSmartUpload.addEventListener('click', () => {
-                    showModal(smartUploadModal);
-                });
-            }
-
-            // Обработчик для кнопки Ручной ввод (не используется в лендинге, но оставлен для полноты)
-            if (btnManualAdd) {
-                btnManualAdd.addEventListener('click', () => {
-                    initializeDate(); // Устанавливаем текущую дату
-                    showModal(addTransactionModal);
-                });
-            }
-
-            // Обработчик для кнопки "Смотреть интерфейс" на HERO-блоке
-            const showDemoBtn = document.getElementById('showDemoBtn');
-            if (showDemoBtn) {
-                // При клике на HERO-блоке показываем первое демо-окно
-                showDemoBtn.addEventListener('click', () => {
-                    showModal(smartUploadModal);
-                });
-            }
-
-            // Обработчики закрытия:
-            // 1. Закрытие по клику на крестике (должны быть элементы с классом .modal-close)
-            document.querySelectorAll('.modal-close').forEach(btn => btn.addEventListener('click', hideAllModals));
-
-            // 2. Закрытие по клику вне модального окна (на самом .modal)
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', (event) => {
-                    if (event.target === modal) {
-                        hideAllModals();
-                    }
-                });
-            });
-            
-            // Имитация клика по Upload Area, чтобы показать второе окно (Ручной ввод),
-            // для имитации полного цикла "загрузка" -> "ручной ввод" (если нужна такая последовательность)
-            // Здесь просто покажем ручной ввод при нажатии на область загрузки в первом окне.
-            const uploadArea = smartUploadModal ? smartUploadModal.querySelector('.upload-area') : null;
-            if (uploadArea) {
-                uploadArea.addEventListener('click', (e) => {
-                    // Имитация перехода к ручному вводу после "загрузки"
-                    // В реальном приложении здесь будет логика загрузки/анализа
-                    e.preventDefault();
-                    // setTimeout(() => { // Имитация задержки на анализ
-                        // hideAllModals();
-                        // initializeDate();
-                        // showModal(addTransactionModal);
-                    // }, 500);
-                });
-            }
-
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Заявка отправлена!';
+            btn.style.background = '#10B981';
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = '';
+                this.reset();
+            }, 3000);
         });
     </script>
 </body>
