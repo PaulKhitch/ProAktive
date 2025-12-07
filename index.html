@@ -4,14 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ПроАктив — Цифровой Управляющий Недвижимостью</title>
-    <!-- Подключаем ваши стили (предполагаем, что они в main.css) -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Подключаем скрипт для инициализации UI -->
-    <script src="app.js" defer></script>
+    <!-- Подключаем шрифт Inter для современного вида -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Стили (CSS из предоставленного файла css.txt) -->
+    <style>
+        /* --- СБРОС И БАЗА --- */
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-main: #0b0e14;
+            --primary: #3b82f6;
+            --accent: #8b5cf6;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.7);
+            --border: rgba(255,255,255,0.1);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ФОНОВЫЕ ПЯТНА (Градиенты) */
+
+        .bg-gradient-orb {
+            position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.2;
+        }
+
+        .top-left { top: -100px; left: -100px; background: radial-gradient(circle, var(--accent), transparent 70%); }
+        .bottom-right { bottom: -100px; right: -100px; background: radial-gradient(circle, var(--primary), transparent 70%); }
+
+        /* --- НАВИГАЦИЯ --- */
+
+        .navbar {
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-box {
+            background-color: var(--primary);
+            color: var(--text-white);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            margin-right: 8px;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- КНОПКИ --- */
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 1px solid transparent;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-white);
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* --- HERO --- */
+
+        .hero-section {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-actions .btn {
+            margin: 0 10px;
+            font-size: 1.1rem;
+        }
+
+        /* --- FEATURE CARDS --- */
+
+        .features-section { padding: 80px 0; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+        }
+
+        .features-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+        }
+
+        .feature-card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        /* --- ИМИТАЦИЯ ИНТЕРФЕЙСА (DEMO) --- */
+
+        .demo-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .screenshot-placeholder {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            height: 400px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshot-placeholder::before {
+            content: 'Главная панель. Аналитика P&L, метрики TCO и ROI, уведомления об аномалиях.';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* --- ТАРИФЫ (PRICING) --- */
+
+        .pricing-section {
+            padding: 80px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .price-card {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .price-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .price-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .price-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .price-card .price small {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 0;
+        }
+
+        .price-card ul li {
+            padding: 8px 0;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .price-card ul li::before {
+            content: '✓';
+            color: #10b981; /* Green check */
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        
+        /* --- КОНТАКТЫ/CTA (CONTACT) --- */
+
+        .contact-section {
+            padding: 80px 0 100px;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: #1e293b;
+            padding: 60px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-card h2 {
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* --- FOOTER --- */
+        
+        .footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- МОДАЛЬНЫЕ ОКНА (для имитации интерфейса) --- */
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none; /* Скрыто по умолчанию */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 0.3s;
+            border: 1px solid var(--primary);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: #0f172a;
+            color: var(--text-white);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .upload-area {
+            background: #0f172a;
+            border: 2px dashed #341555; 
+            border-radius: 12px; 
+            height: 200px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .file-icon { font-size: 3rem; color: #f87171; margin-bottom: 10px; }
+        
+        .scan-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--primary);
+            box-shadow: 0 0 10px var(--primary); animation: scan 3s infinite linear;
+        }
+        
+        @keyframes scan { 0% {top: 0;} 100% {top: 100%;} }
+        
+        .badge-ai { color: #c084fc; background: rgba(192,132,252,0.1); display: inline-block; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem; margin-top: 10px;}
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-row { justify-content: center; }
+            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section p { font-size: 1rem; }
+            .hero-actions { display: flex; flex-direction: column; gap: 10px; }
+            .hero-actions .btn { margin: 0; }
+            .contact-card { padding: 40px 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
 </head>
 <body>
 
-    <!-- Графические шары на фоне (из стилей source: .bg-gradient-orb) -->
+    <!-- Графические шары на фоне -->
     <div class="bg-gradient-orb top-left"></div>
     <div class="bg-gradient-orb bottom-right"></div>
 
@@ -22,6 +468,7 @@
                 <div class="logo-box">P</div>
                 ПроАктив
             </div>
+            <!-- Ссылки скрыты на мобильных, но присутствуют для десктопа -->
             <div class="nav-links">
                 <a href="#features">Функции</a>
                 <a href="#demo">Интерфейс</a>
@@ -31,262 +478,201 @@
         </div>
     </nav>
 
-    <!-- Главный экран (HERO) -->
-    <section class="hero">
+    <!-- 1. Главный экран (HERO) -->
+    <section class="hero-section">
         <div class="container">
-            <span class="badge-pill">🚀 Версия 4.4 B2B</span>
-            
-            <!-- Усиленный заголовок -->
-            <h1>
-                Ваша недвижимость — <span class="gradient-text">Активный Цифровой Двойник</span>
-            </h1>
-            <p class="hero-sub">
-                Ядро системы — проактивный AI-Агент, который реализует автономное, управляемое данными (Data-Driven) управление [1, 2]. Мы превращаем хаос в прогнозируемый финансовый результат [3, 4].
+            <!-- Искусственный Интеллект для Управления Коммерческой Недвижимостью -->
+            <h1>ПроАктив. Цифровой Управляющий 24/7.</h1>
+            <!-- Сосредоточьтесь на стратегии. ИИ возьмет на себя 80% рутинного контроля, анализа и финансового планирования. -->
+            <p>
+                Сократите операционные расходы и получите прозрачный P&L. Мы автоматизируем финансовый анализ, документооборот и управление объектом.
             </p>
             <div class="hero-actions">
-                <button class="btn btn-lg btn-primary" id="showDemoBtn">Смотреть интерфейс</button>
-                <a href="#contact" class="btn btn-lg btn-outline">Заказать внедрение</a>
+                <a href="#contact" class="btn btn-primary">Начать Бесплатно</a>
+                <button id="showDemoBtn" class="btn btn-outline">Смотреть интерфейс</button>
             </div>
         </div>
     </section>
 
-    <!-- Секция Демонстрации / Проблематика -->
-    <section class="demo-section" id="demo">
+    <!-- 2. Функции (FEATURES) -->
+    <section id="features" class="features-section">
         <div class="container">
-            <div class="section-header">
-                <h2>От «Чёрного Ящика» к Проактивной Экономии</h2>
-                <p class="text-gray">
-                    Отсутствие Data-Driven подхода приводит к прямым финансовым потерям [5]. Мы даем Прозрачность, Проактивность и Предиктивность [4, 6].
-                </p>
-            </div>
-
-            <!-- Контейнер Mockup -->
-            <div class="app-mockup glass">
-                
-                <!-- Заголовок окна (имитация браузера) -->
-                <div class="mockup-header">
-                    <div class="dots">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                    </div>
-                    <div class="url-bar">
-                        app.proactive.com/portfolio/dashboard
-                    </div>
-                </div>
-
-                <div class="mockup-body">
-                    
-                    <!-- САЙДБАР (Слева) -->
-                    <div class="mockup-sidebar">
-                        <p class="text-gray" style="font-size: 0.8rem; margin-bottom: 10px;">Действия</p>
-                        
-                        <!-- Кнопка Smart Upload -->
-                        <button class="menu-item active" id="btnSmartUpload">
-                           📄 Smart Upload (AI)
-                        </button>
-                        
-                        <!-- Кнопка Ручной ввод -->
-                        <button class="menu-item" id="btnManualAdd">
-                           💰 Ручной ввод
-                        </button>
-                        
-                        <button class="menu-item">
-                           ⚙️ Настройки
-                        </button>
-                        
-                        <div class="bottom">
-                            <p class="text-gray" style="font-size: 0.8rem;">AI-Агент v4.4</p>
-                        </div>
-                    </div>
-
-                    <!-- КОНТЕНТ (Имитация дашборда) -->
-                    <div class="tab-content active" id="dashboard-content">
-                        
-                        <div class="content-top">
-                           <h3>Сводка Актива</h3>
-                           <span class="date-badge">Сентябрь 2024</span>
-                        </div>
-                        
-                        <!-- Статистика KPI (имитация) -->
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="label">Выручка</span>
-                                <p class="value">14.2 M₽</p>
-                                <span class="trend up">▲ +12%</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="label">OPEX (Расходы)</span>
-                                <p class="value">3.5 M₽</p>
-                                <span class="trend down">▼ -5% (Проактивность)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="label">Чистая прибыль (NOI)</span>
-                                <p class="value">10.7 M₽</p>
-                                <span class="trend up">▲ +18%</span>
-                            </div>
-                        </div>
-
-                        <!-- Имитация графика (Проактивность: Аномалии) -->
-                        <div class="charts-grid">
-                            <div class="chart-box">
-                                <span class="label">Проактивная Аналитика</span>
-                                <h4 style="margin-top: 5px;">Аномалия: Потребление энергии</h4>
-                                <div class="bar-chart-container" style="height: 250px;">
-                                    <p class="text-gray" style="margin: auto;">[Имитация графика, показывающего скачок потребления]</p>
-                                </div>
-                                <p class="sub" style="margin-top: 15px;">
-                                    AI-Агент обнаружил аномальное потребление чиллера. Автоматически создана задача в FSM [7, 8].
-                                </p>
-                            </div>
-                            
-                            <!-- Имитация списка последних операций -->
-                            <div class="list-box">
-                                <span class="label">Последние Операции</span>
-                                <div class="list-item">
-                                    <div class="icon-circle green">+</div>
-                                    <div class="info">
-                                        <p class="title">Аренда: Офис А</p>
-                                        <p class="sub">Сегодня, 10:00</p>
-                                    </div>
-                                    <div class="amount positive">+450 000 ₽</div>
-                                </div>
-                                <div class="list-item">
-                                    <div class="icon-circle red">-</div>
-                                    <div class="info">
-                                        <p class="title">Ремонт (FSM #123)</p>
-                                        <p class="sub">Вчера, 18:30</p>
-                                    </div>
-                                    <div class="amount negative">-25 000 ₽</div>
-                                </div>
-                                <div class="list-item">
-                                    <div class="icon-circle info">!</div>
-                                    <div class="info">
-                                        <p class="title">Напоминание (Договор)</p>
-                                        <p class="sub">Срок 20.12.2024</p>
-                                    </div>
-                                    <div class="amount text-gray">Проверить</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    
-    <!-- Секция Функций -->
-    <section class="features-section" id="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Мы предлагаем мозг для всего актива.</h2>
-                <p class="hero-sub" style="max-width: 800px; margin: 0 auto 40px;">
-                    Мы — единственная платформа с проактивным AI-ядром [6]. Конкуренты сфокусированы на простом учете (ERP/FSM), а не на предиктивной аналитике [9, 10].
-                </p>
-            </div>
-            
+            <h2 class="section-title">Система, которая работает за вас</h2>
             <div class="features-grid">
-                <div class="feature-card glass">
-                    <span class="emoji">🧠</span>
-                    <h3>Проактивный AI-Агент</h3>
-                    <p class="text-gray">
-                        Ядро системы, которое непрерывно сканирует данные, выявляя проблемы, аномалии и влияющие факторы [4, 11].
-                    </p>
+                
+                <!-- AI Анализ -->
+                <div class="feature-card">
+                    <span class="feature-icon">
+                        <!-- Иконка Аналитики (SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart"><path d="M3 3v18h18"/><path d="M7 16v3"/><path d="M12 13v6"/><path d="M17 9v10"/><path d="M4 11l4-4 4 4 4-4 4 4"/></svg>
+                    </span>
+                    <h3>Интеллектуальный анализ</h3>
+                    <p>Мгновенный расчет P&L, TCO и ROI. Система самостоятельно выявляет финансовые аномалии и риски, предотвращая перерасход. Только данные, без догадок.</p>
                 </div>
                 
-                <div class="feature-card glass">
-                    <span class="emoji">💸</span>
-                    <h3>Прозрачность Финансов</h3>
-                    <p class="text-gray">
-                        Полная картина P&L, Cashflow и Чистого Операционного Дохода (NOI) в режиме реального времени [3, 4].
-                    </p>
+                <!-- Smart Upload -->
+                <div class="feature-card">
+                    <span class="feature-icon">
+                        <!-- Иконка Документа (SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                    </span>
+                    <h3>Автоматизация документов</h3>
+                    <p>Загружайте сканы или фото счетов и актов. ИИ распознает и внесет данные о расходах, дате и категории в систему за считанные секунды. Минус ручной ввод.</p>
                 </div>
 
-                <div class="feature-card glass">
-                    <span class="emoji">📄</span>
-                    <h3>Smart Upload</h3>
-                    <p class="text-gray">
-                        AI (Docling + Gemini) классифицирует документы, извлекая сумму, дату и категорию, автоматически создавая записи [12, 13].
-                    </p>
+                <!-- Контроль -->
+                <div class="feature-card">
+                    <span class="feature-icon">
+                        <!-- Иконка Защиты/Щита (SVG) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <h3>Прозрачный финансовый контур</h3>
+                    <p>Полный контроль CAPEX, OPEX и доходов. Система ведет историю транзакций, позволяя отслеживать динамику и принимать обоснованные решения по обслуживанию.</p>
                 </div>
-                
-                <div class="feature-card glass">
-                    <span class="emoji">🛠️</span>
-                    <h3>FSM Модуль (Эксплуатация)</h3>
-                    <p class="text-gray">
-                        Встроенная система управления заявками и техническим обслуживанием, связанная с финансовым учетом [2, 3].
-                    </p>
-                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Секция Контактов/Призыва к действию -->
-    <section class="contact-section" id="contact">
+    <!-- 3. Интерфейс (DEMO) -->
+    <section id="demo" class="demo-section">
         <div class="container">
-            <div class="form-box glass">
-                <h2>Готовы начать?</h2>
-                <p class="hero-sub">Оставьте заявку на бесплатную демонстрацию и оценку вашего актива.</p>
-                <form>
-                    <input type="text" placeholder="Ваше имя" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="tel" placeholder="Телефон" required>
-                    <button type="submit" class="btn btn-primary btn-lg w-full">Отправить Заявку</button>
+            <h2 class="section-title">Интерфейс, созданный для результата</h2>
+            <p style="max-width: 700px; margin: 0 auto 20px; color: var(--text-gray);">
+                Простой и понятный дашборд с ключевыми метриками (P&L, TCO, ROI) всегда под рукой.
+            </p>
+            <div class="screenshot-placeholder">
+                <div style="padding: 20px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);">
+                    Нажмите "Смотреть интерфейс" для демонстрации возможностей.
+                </div>
+            </div>
+            <a href="#contact" class="btn btn-primary" style="margin-top: 40px;">Запросить личную демонстрацию</a>
+        </div>
+    </section>
+
+    <!-- 4. Тарифы (PRICING) -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Лаконичные тарифы</h2>
+            <div class="pricing-grid">
+                
+                <!-- Базовый -->
+                <div class="price-card">
+                    <h3>Базовый</h3>
+                    <p class="price">
+                        0 ₽ <small>/ месяц</small>
+                    </p>
+                    <ul>
+                        <li>Подключение 1 объекта</li>
+                        <li>Управление расходами и доходами</li>
+                        <li>Ручной ввод транзакций</li>
+                        <li>Базовая аналитика P&L</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Начать Бесплатно</a>
+                </div>
+                
+                <!-- Профессиональный (Рекомендуемый) -->
+                <div class="price-card featured">
+                    <h3>Профессиональный</h3>
+                    <p class="price" style="color: var(--text-white);">
+                        1490 ₽ <small>/ объект / мес</small>
+                    </p>
+                    <ul>
+                        <li>Подключение до 10 объектов</li>
+                        <li>**Smart Upload (ИИ-распознавание)**</li>
+                        <li>Полный финансовый анализ (TCO, ROI, Cash Flow)</li>
+                        <li>Уведомления об аномалиях</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%;">Выбрать Профессиональный</a>
+                </div>
+                
+                <!-- Корпоративный -->
+                <div class="price-card">
+                    <h3>Корпоративный</h3>
+                    <p class="price">
+                        Индивидуально
+                    </p>
+                    <ul>
+                        <li>Неограниченное число объектов</li>
+                        <li>Интеграция с ERP/1C</li>
+                        <li>Управление заявками на обслуживание</li>
+                        <li>Выделенный менеджер</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Запросить Расчет</a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Контакты / CTA -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-card">
+                <h2 class="section-title" style="margin-bottom: 10px;">Начните управлять эффективно</h2>
+                <p>Получите доступ к тестовому периоду или запросите подробную презентацию для вашей управляющей компании.</p>
+                <form onsubmit="event.preventDefault(); alert('Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время!');" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" placeholder="Ваше имя" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail / Телефон</label>
+                        <input type="text" id="email" placeholder="mail@example.com" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Отправить заявку</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- МОДАЛЬНЫЕ ОКНА (MOCKUP FORMS) -->
-    
-    <!-- Модальное окно Smart Upload (AI) -->
-    <div class="modal" id="smartUploadModal">
-        <div class="form-box glass" style="max-width: 600px; text-align: left;">
-            <span class="modal-close" onclick="hideAllModals()">✕</span>
-            <h3>🤖 Smart Upload: Анализ документа</h3>
-            <p class="text-gray" style="text-align: center;">Загрузите скан счета, акта или договора (PDF, JPG). AI распознает данные и создаст запись [14].</p>
-            
-            <div class="upload-area" id="dropZone">
-              <span class="scan-bar"></span>
-              <div class="file-icon">📄</div>
-              <p>Нажмите или перетащите файл сюда</p>
-              <p class="text-gray" style="font-size: 0.8rem;">AI Docling + Gemini извлекут сумму, дату и категорию [13].</p>
-              <input type="file" id="smartFile" style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
-            </div>
-            
-            <div class="form-group" style="margin-top: 20px;">
-                <label>Объект недвижимости</label>
-                <input type="text" value="ТЦ «Плаза» (ID: 101)" class="fake-input" readonly>
-            </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 ПроАктив. Цифровой Управляющий Недвижимостью.
+        </div>
+    </footer>
 
-            <!-- Имитация результатов анализа AI -->
-            <div class="ai-analysis" style="margin-top: 20px;">
-                <span class="badge-pill badge-ai">🤖 AI нашел данные!</span>
-                <p class="sub" style="margin: 5px 0;">Проверьте перед сохранением [15].</p>
-                <div class="form-group">
-                    <label>Распознанная сумма</label>
-                    <input type="text" value="142 500 ₽" class="fake-input" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Категория (OPEX)</label>
-                    <input type="text" value="Электричество" class="fake-input" readonly>
-                </div>
-                <button class="btn-full-green">✅ Подтвердить и создать расход</button>
-                <button class="btn btn-outline w-full" style="margin-top: 10px;">Пропустить (только сохранить файл)</button>
+
+    <!-- ============================================= -->
+    <!-- Модальные окна для демонстрации функций (DEMO) -->
+    <!-- ============================================= -->
+    
+    <!-- Модальное окно: Smart Upload (ИИ-распознавание) -->
+    <div id="smartUploadModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 style="margin-bottom: 20px;">Smart Upload: ИИ-распознавание</h2>
+            <div class="upload-area">
+                <div class="scan-bar"></div>
+                <div class="file-icon">📄</div>
+                <p style="color: var(--text-gray);">Перетащите скан или фото счета-фактуры сюда</p>
+                <p style="font-size: 0.9rem; color: #f87171;">ИЛИ КЛИКНИТЕ ДЛЯ ЗАГРУЗКИ</p>
+            </div>
+            <div class="ai-analysis" style="text-align: left;">
+                <p class="badge-ai">🤖 Анализ ИИ завершен</p>
+                <p style="margin-top: 10px;">**Найдено:** Расход (ОПЕКС)</p>
+                <p>**Сумма:** 12 500.00 ₽</p>
+                <p>**Дата:** 2024-09-03</p>
+                <p>**Категория:** Электричество</p>
+                <p style="color: #10b981; margin-top: 10px; font-weight: 600;">Готово к сохранению в один клик.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Отмена</button>
+                <button class="btn btn-primary">Сохранить Транзакцию</button>
             </div>
         </div>
     </div>
-    
-    <!-- Модальное окно Ручной ввод -->
-    <div class="modal" id="addTransactionModal">
-        <div class="form-box glass" style="max-width: 450px; text-align: left;">
-            <span class="modal-close" onclick="hideAllModals()">✕</span>
-            <h3>💰 Ручной ввод операции</h3>
+
+    <!-- Модальное окно: Ручной ввод -->
+    <div id="addTransactionModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 style="margin-bottom: 20px;">Ручной ввод транзакции</h2>
             
-            <div class="flex-row" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button class="btn btn-primary flex-1" id="btnTransExpense" style="flex: 1; padding: 10px; background: #991b1b; border: 1px solid #f87171;">Расход</button>
-                <button class="btn btn-outline flex-1" id="btnTransIncome" style="flex: 1; padding: 10px;">Доход</button>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button class="btn btn-primary" id="btnTransExpense" style="flex: 1; padding: 10px; background: #991b1b; border: 1px solid #f87171;">Расход</button>
+                <button class="btn btn-outline" id="btnTransIncome" style="flex: 1; padding: 10px;">Доход</button>
             </div>
             
             <div class="form-group">
@@ -296,7 +682,6 @@
             
             <div class="form-group">
                 <label for="transCategory">Категория</label>
-                <!-- Используем RECOMMENDED_CATEGORIES из модели -->
                 <select id="transCategory" class="fake-input" style="width: 100%; appearance: none; -webkit-appearance: none;">
                     <option value="Аренда">Аренда</option>
                     <option value="Электричество">Электричество</option>
@@ -311,10 +696,121 @@
                 <input type="date" id="transDate" value="2024-09-03" />
             </div>
             
-            <button class="btn btn-primary w-full" id="confirmTransactionBtn">Сохранить</button>
+            <div class="form-group">
+                <label for="transDescription">Описание</label>
+                <input type="text" id="transDescription" placeholder="Например: Арендная плата за октябрь" />
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Отмена</button>
+                <button class="btn btn-primary">Сохранить</button>
+            </div>
         </div>
     </div>
 
+
+    <!-- ============================================= -->
+    <!-- Скрипты (JS из предоставленного файла app.js) -->
+    <!-- ============================================= -->
+
+    <script>
+        // --- 1. Элементы DOM (Получение ссылок на ключевые элементы) ---
+        const smartUploadModal = document.getElementById('smartUploadModal');
+        const addTransactionModal = document.getElementById('addTransactionModal');
+        // Элементы, которые могут быть в сайдбаре, но здесь имитируются для демонстрации
+        const btnSmartUpload = document.getElementById('btnSmartUpload');
+        const btnManualAdd = document.getElementById('btnManualAdd');
+
+        // --- 2. Управление UI (На основе логики showModal/hideAllModals) ---
+
+        /** Показывает модальное окно, устанавливая ему display: flex */
+        function showModal(modalElement) {
+            if (modalElement) {
+                // Убеждаемся, что все другие модальные окна скрыты, прежде чем показывать новое
+                hideAllModals();
+                modalElement.style.display = 'flex';
+            }
+        }
+
+        /** Скрывает все модальные окна, имеющие класс .modal */
+        function hideAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        /** Инициализация даты для ручного ввода на текущую дату */
+        function initializeDate() {
+            const dateInput = document.getElementById('transDate');
+            if (dateInput) {
+                // Устанавливаем текущую дату в поле ввода HTML
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                dateInput.value = `${year}-${month}-${day}`;
+            }
+        }
+
+        // --- 3. Инициализация и обработчики событий ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Обработчик для кнопки Smart Upload (не используется в лендинге, но оставлен для полноты)
+            if (btnSmartUpload) {
+                btnSmartUpload.addEventListener('click', () => {
+                    showModal(smartUploadModal);
+                });
+            }
+
+            // Обработчик для кнопки Ручной ввод (не используется в лендинге, но оставлен для полноты)
+            if (btnManualAdd) {
+                btnManualAdd.addEventListener('click', () => {
+                    initializeDate(); // Устанавливаем текущую дату
+                    showModal(addTransactionModal);
+                });
+            }
+
+            // Обработчик для кнопки "Смотреть интерфейс" на HERO-блоке
+            const showDemoBtn = document.getElementById('showDemoBtn');
+            if (showDemoBtn) {
+                // При клике на HERO-блоке показываем первое демо-окно
+                showDemoBtn.addEventListener('click', () => {
+                    showModal(smartUploadModal);
+                });
+            }
+
+            // Обработчики закрытия:
+            // 1. Закрытие по клику на крестике (должны быть элементы с классом .modal-close)
+            document.querySelectorAll('.modal-close').forEach(btn => btn.addEventListener('click', hideAllModals));
+
+            // 2. Закрытие по клику вне модального окна (на самом .modal)
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                        hideAllModals();
+                    }
+                });
+            });
+            
+            // Имитация клика по Upload Area, чтобы показать второе окно (Ручной ввод),
+            // для имитации полного цикла "загрузка" -> "ручной ввод" (если нужна такая последовательность)
+            // Здесь просто покажем ручной ввод при нажатии на область загрузки в первом окне.
+            const uploadArea = smartUploadModal ? smartUploadModal.querySelector('.upload-area') : null;
+            if (uploadArea) {
+                uploadArea.addEventListener('click', (e) => {
+                    // Имитация перехода к ручному вводу после "загрузки"
+                    // В реальном приложении здесь будет логика загрузки/анализа
+                    e.preventDefault();
+                    // setTimeout(() => { // Имитация задержки на анализ
+                        // hideAllModals();
+                        // initializeDate();
+                        // showModal(addTransactionModal);
+                    // }, 500);
+                });
+            }
+
+        });
+    </script>
 </body>
 </html>
-
