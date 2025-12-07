@@ -3,223 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ПроАктив — AI Операционная система для недвижимости</title>
+    <title>ПроАктив — AI Система управления недвижимостью</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ФОН -->
-    <div class="bg-gradient"></div>
+    <!-- ФОНОВЫЕ ЭФФЕКТЫ -->
+    <div class="bg-gradient-orb top-left"></div>
+    <div class="bg-gradient-orb bottom-right"></div>
 
     <!-- НАВИГАЦИЯ -->
     <nav class="navbar glass">
         <div class="container nav-row">
             <div class="logo">
-                <div class="logo-icon">P</div>
-                <span>ПроАктив</span>
+                <div class="logo-box">P</div>
+                <span class="logo-text">ПроАктив</span>
             </div>
-            <div class="nav-links hidden-mobile">
-                <a href="#demo">Обзор продукта</a>
-                <a href="#features">Возможности</a>
-                <a href="#pricing">Цены</a>
+            <div class="nav-links">
+                <a href="#demo">Демо</a>
+                <a href="#features">Функции</a>
+                <a href="#pricing">Тарифы</a>
             </div>
-            <a href="#contact" class="btn btn-primary">Запросить демо</a>
+            <a href="#contact" class="btn btn-primary">Попробовать</a>
         </div>
     </nav>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <!-- ГЛАВНЫЙ БЛОК -->
     <header class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="badge">🔥 Версия 4.4 уже доступна</div>
-                <h1>Вся ваша недвижимость <br> <span class="text-gradient">как на ладони</span></h1>
-                <p class="hero-desc">
-                    Замените Excel и разрозненные отчеты на единую AI-платформу. 
-                    Финансы, эксплуатация и геоаналитика в одном окне браузера.
-                </p>
-                <div class="hero-btns">
-                    <a href="#demo" class="btn btn-primary btn-lg">Смотреть интерфейс</a>
-                    <a href="#contact" class="btn btn-outline btn-lg">Связаться с нами</a>
-                </div>
-                
-                <div class="metrics-strip">
-                    <div class="metric">
-                        <strong>+15%</strong>
-                        <span>к ROI портфеля</span>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="metric">
-                        <strong>30 мин</strong>
-                        <span>экономии в день</span>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="metric">
-                        <strong>0%</strong>
-                        <span>ошибок ввода</span>
-                    </div>
-                </div>
+        <div class="container text-center">
+            <div class="badge-pill">🚀 Версия 4.4 B2B</div>
+            <h1>Управляйте недвижимостью <br> <span class="gradient-text">на автопилоте</span></h1>
+            <p class="hero-sub">
+                Единая система для собственников и УК. Автоматизируйте сбор арендной платы, 
+                контроль расходов и эксплуатацию зданий с помощью Искусственного Интеллекта.
+            </p>
+            <div class="hero-actions">
+                <a href="#demo" class="btn btn-primary btn-lg">Смотреть интерфейс</a>
+                <a href="#contact" class="btn btn-outline btn-lg">Заказать внедрение</a>
             </div>
         </div>
     </header>
 
-    <!-- ИНТЕРАКТИВНОЕ ДЕМО ПРОДУКТА -->
-    <section id="demo" class="product-showcase">
+    <!-- ИНТЕРАКТИВНОЕ ДЕМО (КЛЮЧЕВОЙ БЛОК) -->
+    <section id="demo" class="demo-section">
         <div class="container">
-            <div class="section-title">
-                <h2>Интерфейс, в котором хочется работать</h2>
-                <p>Переключайтесь между вкладками, чтобы увидеть возможности системы.</p>
+            <div class="section-header">
+                <h2>Как это работает</h2>
+                <p>Нажимайте на вкладки, чтобы увидеть разные модули системы.</p>
             </div>
 
-            <!-- Табы переключения -->
-            <div class="tabs-wrapper">
-                <button class="tab-btn active" data-tab="dashboard">📊 Дашборд</button>
-                <button class="tab-btn" data-tab="map">🗺️ Геоаналитика</button>
-                <button class="tab-btn" data-tab="docs">📄 AI Документы</button>
+            <!-- КНОПКИ ТАБОВ -->
+            <div class="tabs-container glass">
+                <button class="tab-btn active" onclick="openTab(event, 'dashboard')">📊 Дашборд</button>
+                <button class="tab-btn" onclick="openTab(event, 'map')">🌍 Карта активов</button>
+                <button class="tab-btn" onclick="openTab(event, 'docs')">📄 AI Документы</button>
             </div>
 
-            <!-- Окно приложения -->
-            <div class="app-window glass">
-                <!-- Шапка окна -->
-                <div class="window-header">
-                    <div class="window-controls">
+            <!-- ОКНО ПРИЛОЖЕНИЯ -->
+            <div class="app-mockup glass">
+                <!-- Верхняя панель окна -->
+                <div class="mockup-header">
+                    <div class="dots">
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot green"></span>
                     </div>
-                    <div class="address-bar">app.proactive.com/portfolio</div>
+                    <div class="url-bar">app.proactive.com/portfolio</div>
                 </div>
 
-                <!-- Тело приложения -->
-                <div class="window-body">
-                    <!-- Сайдбар (постоянный) -->
-                    <div class="app-sidebar">
-                        <div class="sidebar-item active">Обзор</div>
-                        <div class="sidebar-item">Объекты</div>
-                        <div class="sidebar-item">Финансы</div>
-                        <div class="sidebar-item">Заявки</div>
-                        <div class="sidebar-item mt-auto">Настройки</div>
+                <div class="mockup-body">
+                    <!-- Сайдбар (Фиксированная ширина) -->
+                    <div class="mockup-sidebar">
+                        <div class="menu-item active">🏠 Обзор</div>
+                        <div class="menu-item">🏢 Объекты</div>
+                        <div class="menu-item">💰 Финансы</div>
+                        <div class="menu-item">🛠️ Заявки</div>
+                        <div class="menu-item bottom">⚙️ Настройки</div>
                     </div>
 
-                    <!-- ЭКРАН 1: ДАШБОРД (Активный по умолчанию) -->
-                    <div class="app-content active" id="dashboard">
-                        <div class="content-header">
+                    <!-- ЭКРАН 1: ДАШБОРД -->
+                    <div id="dashboard" class="tab-content active">
+                        <div class="content-top">
                             <h3>Сводка по портфелю</h3>
-                            <div class="date-picker">Сентябрь 2024 ▾</div>
+                            <span class="date-badge">Сентябрь 2024</span>
                         </div>
-                        <div class="dashboard-grid">
-                            <div class="kpi-card">
-                                <small>Выручка</small>
+                        
+                        <!-- KPI Карточки -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="label">Выручка</span>
                                 <div class="value">14.2 M₽</div>
-                                <div class="trend positive">↗ 12% к прошлому мес.</div>
+                                <div class="trend up">▲ +12%</div>
                             </div>
-                            <div class="kpi-card">
-                                <small>Чистая прибыль</small>
-                                <div class="value">4.8 M₽</div>
-                                <div class="trend positive">↗ 5% к плану</div>
+                            <div class="stat-card">
+                                <span class="label">OPEX (Расходы)</span>
+                                <div class="value">3.5 M₽</div>
+                                <div class="trend down">▼ -5% (Хорошо)</div>
                             </div>
-                            <div class="kpi-card">
-                                <small>Загрузка площадей</small>
-                                <div class="value">96%</div>
-                                <div class="trend neutral">→ Без изменений</div>
+                            <div class="stat-card">
+                                <span class="label">Чистая прибыль</span>
+                                <div class="value">10.7 M₽</div>
+                                <div class="trend up">▲ +18%</div>
                             </div>
-                            
-                            <!-- График (имитация) -->
-                            <div class="chart-card wide">
+                        </div>
+
+                        <div class="charts-grid">
+                            <!-- График (визуализация CSS) -->
+                            <div class="chart-box">
                                 <h4>Динамика Cashflow</h4>
-                                <div class="fake-chart">
+                                <div class="bar-chart-container">
                                     <div class="bar" style="height: 40%"></div>
                                     <div class="bar" style="height: 60%"></div>
-                                    <div class="bar" style="height: 30%"></div>
+                                    <div class="bar" style="height: 45%"></div>
                                     <div class="bar" style="height: 80%"></div>
-                                    <div class="bar" style="height: 55%"></div>
-                                    <div class="bar" style="height: 90%"></div>
-                                    <div class="bar active" style="height: 75%"></div>
+                                    <div class="bar active" style="height: 95%"></div>
+                                    <div class="bar" style="height: 60%"></div>
+                                </div>
+                                <div class="chart-labels">
+                                    <span>Апр</span><span>Май</span><span>Июн</span><span>Июл</span><span>Авг</span><span>Сен</span>
                                 </div>
                             </div>
 
-                            <!-- Таблица -->
-                            <div class="table-card wide">
-                                <h4>Последние транзакции</h4>
-                                <div class="fake-table">
-                                    <div class="ft-row header">
-                                        <span>Дата</span><span>Категория</span><span>Сумма</span><span>Статус</span>
+                            <!-- Список -->
+                            <div class="list-box">
+                                <h4>Последние операции</h4>
+                                <div class="list-item">
+                                    <div class="icon-circle green">↓</div>
+                                    <div class="info">
+                                        <div class="title">Аренда: Офис А</div>
+                                        <div class="sub">Сегодня, 10:00</div>
                                     </div>
-                                    <div class="ft-row">
-                                        <span>01.09</span><span>Аренда (Офис А)</span><span>+450 000 ₽</span><span class="badge green">Ок</span>
+                                    <div class="amount positive">+450 000 ₽</div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="icon-circle red">↑</div>
+                                    <div class="info">
+                                        <div class="title">Клининг</div>
+                                        <div class="sub">Вчера, 18:30</div>
                                     </div>
-                                    <div class="ft-row">
-                                        <span>02.09</span><span>Клининг</span><span>-25 000 ₽</span><span class="badge gray">Оплачено</span>
-                                    </div>
-                                    <div class="ft-row">
-                                        <span>03.09</span><span>Ремонт HVAC</span><span>-120 000 ₽</span><span class="badge yellow">В обр.</span>
-                                    </div>
+                                    <div class="amount negative">-25 000 ₽</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- ЭКРАН 2: КАРТА -->
-                    <div class="app-content" id="map">
-                        <div class="content-header">
-                            <h3>Географический анализ</h3>
-                            <button class="btn-sm">Фильтр слоев</button>
+                    <div id="map" class="tab-content">
+                        <div class="content-top">
+                            <h3>География активов</h3>
                         </div>
-                        <div class="map-container">
-                            <!-- Сетка карты -->
-                            <div class="map-grid"></div>
-                            <!-- Точки на карте -->
-                            <div class="map-pin p1 tooltip" data-tip="ТЦ Плаза: 4500 м²"></div>
-                            <div class="map-pin p2 tooltip" data-tip="Склад Север: 1200 м²"></div>
-                            <div class="map-pin p3 tooltip" data-tip="Офис Центр: 800 м²"></div>
+                        <div class="map-view">
+                            <div class="map-bg"></div> <!-- Сетка карты -->
+                            <!-- Пины -->
+                            <div class="pin p1">
+                                <div class="tooltip">ТЦ Плаза<br><b>Выручка: High</b></div>
+                            </div>
+                            <div class="pin p2">
+                                <div class="tooltip">Склад Север<br><b>Загрузка: 100%</b></div>
+                            </div>
                             
-                            <!-- Панель деталей -->
-                            <div class="map-overlay-panel">
-                                <h5>ТЦ Плаза</h5>
-                                <p>Пешеходный трафик: <strong class="text-green">Высокий</strong></p>
-                                <p>Конкуренты в радиусе 500м: <strong>3</strong></p>
-                                <div class="mini-bar-chart">
-                                    <div class="mb-fill" style="width: 80%"></div>
+                            <div class="map-panel">
+                                <h5>Аналитика локации</h5>
+                                <div class="stat-row">
+                                    <span>Трафик:</span> <strong>Высокий</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Конкуренты:</span> <strong>3</strong>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ЭКРАН 3: ДОКУМЕНТЫ (AI) -->
-                    <div class="app-content" id="docs">
-                        <div class="content-header">
+                    <!-- ЭКРАН 3: ДОКУМЕНТЫ -->
+                    <div id="docs" class="tab-content">
+                        <div class="content-top">
                             <h3>Smart Upload (AI)</h3>
-                            <div class="status-indicator">
-                                <span class="status-dot animate"></span> AI активен
-                            </div>
                         </div>
-                        <div class="docs-split">
-                            <!-- Зона загрузки -->
-                            <div class="upload-zone">
-                                <div class="file-preview">
-                                    <div class="file-icon">PDF</div>
-                                    <div class="file-name">Счет_Электричество_Авг.pdf</div>
-                                </div>
-                                <div class="scan-line"></div> <!-- Анимация сканирования -->
+                        <div class="docs-layout">
+                            <div class="upload-area">
+                                <div class="file-icon">PDF</div>
+                                <div class="upload-text">Счет_Электричество.pdf</div>
+                                <div class="scan-bar"></div>
                             </div>
-                            
-                            <!-- Результат распознавания -->
-                            <div class="ai-result-panel">
-                                <h4>Результат распознавания</h4>
-                                <div class="field-group">
-                                    <label>Контрагент</label>
-                                    <input type="text" value='ПАО "МосЭнергоСбыт"' readonly>
+                            <div class="ai-analysis">
+                                <h4>Распознано AI:</h4>
+                                <div class="form-group">
+                                    <label>Поставщик</label>
+                                    <div class="fake-input">ПАО "МосЭнерго"</div>
                                 </div>
-                                <div class="field-group">
+                                <div class="form-group">
                                     <label>Сумма</label>
-                                    <input type="text" value="142 500.00 ₽" readonly class="text-bold">
+                                    <div class="fake-input">142 500 ₽</div>
                                 </div>
-                                <div class="field-group">
-                                    <label>Категория (Авто)</label>
-                                    <div class="tag-ai">Коммунальные услуги / OPEX</div>
+                                <div class="form-group">
+                                    <label>Категория</label>
+                                    <div class="fake-input badge-ai">Коммунальные / OPEX</div>
                                 </div>
-                                <button class="btn-confirm">Подтвердить и провести</button>
+                                <button class="btn-full-green">Подтвердить</button>
                             </div>
                         </div>
                     </div>
@@ -229,29 +211,25 @@
         </div>
     </section>
 
-    <!-- ПРЕИМУЩЕСТВА (Сетка) -->
+    <!-- ПРЕИМУЩЕСТВА -->
     <section id="features" class="features-section">
         <div class="container">
-            <div class="grid-features">
+            <h2 class="text-center">Почему это работает?</h2>
+            <div class="features-grid">
                 <div class="feature-card glass">
-                    <div class="icon">🤖</div>
-                    <h3>Искусственный Интеллект</h3>
-                    <p>Больше ручного ввода. Загружайте сканы — система сама создаст проводки.</p>
+                    <div class="emoji">🤖</div>
+                    <h3>Нет ручного ввода</h3>
+                    <p>Просто перешлите счета на email системы. AI сам занесет данные.</p>
                 </div>
                 <div class="feature-card glass">
-                    <div class="icon">📈</div>
-                    <h3>Финансовая прозрачность</h3>
-                    <p>P&L и Cashflow строятся автоматически. Вы видите реальную рентабельность.</p>
+                    <div class="emoji">📊</div>
+                    <h3>Прозрачность</h3>
+                    <p>Вы всегда знаете P&L, Cashflow и чистую прибыль в реальном времени.</p>
                 </div>
                 <div class="feature-card glass">
-                    <div class="icon">🛠️</div>
-                    <h3>Эксплуатация (FSM)</h3>
-                    <p>Управление заявками на ремонт. Инженеры получают задачи в мобильном приложении.</p>
-                </div>
-                <div class="feature-card glass">
-                    <div class="icon">🔒</div>
-                    <h3>Безопасность</h3>
-                    <p>Данные шифруются. Ежедневные бэкапы. Разграничение прав доступа.</p>
+                    <div class="emoji">🛠️</div>
+                    <h3>FSM Модуль</h3>
+                    <p>Управление заявками и техниками. QR-коды для оборудования.</p>
                 </div>
             </div>
         </div>
@@ -260,37 +238,45 @@
     <!-- ФОРМА -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <div class="contact-wrapper glass">
-                <div class="contact-text">
-                    <h2>Начните пилотный проект</h2>
-                    <p>Оставьте заявку, мы настроим систему под ваши объекты и покажем, где вы теряете деньги.</p>
-                    <ul class="check-list">
-                        <li>Бесплатный аудит данных</li>
-                        <li>Настройка за 3 дня</li>
-                        <li>Обучение команды</li>
-                    </ul>
-                </div>
-                <form id="leadForm" class="contact-form">
-                    <input type="text" placeholder="Ваше имя" required>
-                    <input type="email" placeholder="Рабочий Email" required>
-                    <input type="text" placeholder="Название компании">
-                    <button type="submit" class="btn btn-primary w-full">Отправить заявку</button>
-                    <p id="formStatus" class="status-msg"></p>
+            <div class="form-box glass">
+                <h2>Начните бесплатно</h2>
+                <p>Оставьте заявку на демонстрацию.</p>
+                <form id="leadForm">
+                    <input type="text" placeholder="Имя" required>
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit" class="btn btn-primary w-full">Отправить</button>
+                    <div id="successMsg" style="display:none; margin-top:10px; color: #4ade80;">Заявка отправлена!</div>
                 </form>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container footer-row">
-            <div class="copy">&copy; 2025 ПроАктив.</div>
-            <div class="footer-links">
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">support@proactive.app</a>
-            </div>
-        </div>
-    </footer>
+    <!-- СКРИПТ (ВСТРОЕН ДЛЯ НАДЕЖНОСТИ) -->
+    <script>
+        function openTab(evt, tabName) {
+            // 1. Скрыть все табы
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            // 2. Убрать активный класс у кнопок
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            // 3. Показать текущий и подсветить кнопку
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
 
-    <script src="script.js"></script>
+        // Форма
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('successMsg').style.display = 'block';
+            this.reset();
+        });
+    </script>
 </body>
 </html>
+
