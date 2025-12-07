@@ -186,38 +186,76 @@
                     <!-- Tab 2: GEO Analytics (НОВОЕ) -->
                     <div id="geo" class="tab-content">
                         <div class="dashboard-header">
-                            <h3>Геоаналитика локации</h3>
-                            <button class="btn-xs">Скачать отчет PDF</button>
+                            <h3>Геоаналитика: ТРЦ "Галактика"</h3>
+                            <div class="geo-controls">
+                                <button class="btn-xs active">Трафик</button>
+                                <button class="btn-xs">Конкуренты</button>
+                                <button class="btn-xs">Инфраструктура</button>
+                            </div>
                         </div>
                         <div class="geo-layout">
-                            <!-- Карта CSS -->
+                            <!-- Визуализация Карты -->
                             <div class="map-visual">
-                                <div class="map-grid-lines"></div>
-                                <!-- Радиус охвата -->
-                                <div class="map-radius"></div>
-                                <!-- Наш объект -->
-                                <div class="map-pin main-pin tooltip" data-tip="Ваш объект"></div>
+                                <!-- 1. Подложка карты (Картинка) -->
+                                <div class="map-image-layer"></div>
+                                
+                                <!-- 2. Тепловая карта (Heatmap) -->
+                                <div class="heatmap-layer"></div>
+
+                                <!-- 3. Радиус охвата -->
+                                <div class="map-radius">
+                                    <span class="radius-label">15 мин</span>
+                                </div>
+
+                                <!-- 4. Пины объектов -->
+                                <div class="map-pin main-pin tooltip" data-tip="Наш объект">
+                                    <div class="pin-pulse"></div>
+                                </div>
+                                
                                 <!-- Конкуренты -->
-                                <div class="map-pin comp-pin p1 tooltip" data-tip="Конкурент А"></div>
+                                <div class="map-pin comp-pin p1 tooltip" data-tip="Конкурент А (ТЦ Лето)">
+                                    <span class="pin-label">−5%</span>
+                                </div>
                                 <div class="map-pin comp-pin p2 tooltip" data-tip="Конкурент Б"></div>
+
+                                <!-- 5. Плавающий виджет данных -->
+                                <div class="map-float-card">
+                                    <div class="float-row">
+                                        <span>👥 Пешеходы:</span>
+                                        <strong style="color:#10B981">24 500 / сут</strong>
+                                    </div>
+                                    <div class="float-row">
+                                        <span>🚘 Автотрафик:</span>
+                                        <strong>High</strong>
+                                    </div>
+                                    <div class="float-chart">
+                                        <div class="fc-bar" style="height:40%"></div>
+                                        <div class="fc-bar" style="height:70%"></div>
+                                        <div class="fc-bar active" style="height:90%"></div>
+                                        <div class="fc-bar" style="height:60%"></div>
+                                        <div class="fc-bar" style="height:50%"></div>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <!-- Данные -->
+                            <!-- Правая панель данных -->
                             <div class="geo-sidebar">
                                 <div class="geo-stat-box">
-                                    <small>Пешеходный трафик</small>
-                                    <div class="val">High</div>
-                                    <div class="progress-bar"><div class="fill" style="width: 85%"></div></div>
-                                </div>
-                                <div class="geo-stat-box">
-                                    <small>Конкуренты (500м)</small>
-                                    <div class="val">3 объекта</div>
-                                </div>
-                                <div class="geo-stat-box">
-                                    <small>Средняя ставка</small>
+                                    <small>Рыночная ставка (Окружение)</small>
                                     <div class="val">1 850 ₽/м²</div>
-                                    <span class="trend up">Потенциал роста</span>
+                                    <span class="trend up">▲ Выше на 5%</span>
                                 </div>
+                                <div class="geo-stat-box">
+                                    <small>Население (R=1km)</small>
+                                    <div class="val">42 500 чел.</div>
+                                    <div class="progress-bar"><div class="fill" style="width: 90%"></div></div>
+                                </div>
+                                <div class="geo-stat-box">
+                                    <small>Обеспеченность ритейлом</small>
+                                    <div class="val">Низкая</div>
+                                    <span class="trend down" style="color:#10B981">▼ Ниша свободна</span>
+                                </div>
+                                <button class="btn-primary w-full" style="font-size: 0.8rem; margin-top: auto;">Скачать отчет PDF</button>
                             </div>
                         </div>
                     </div>
@@ -394,3 +432,4 @@
     </script>
 </body>
 </html>
+
