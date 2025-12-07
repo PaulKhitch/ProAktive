@@ -5,314 +5,288 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ПроАктив — AI Операционная система для недвижимости</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Шрифты: Inter для текста, Space Grotesk для заголовков (техно-стиль) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ЖИВОЙ ФОН -->
-    <div class="background-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="noise-overlay"></div>
-    </div>
+    <!-- ФОН -->
+    <div class="bg-gradient"></div>
 
     <!-- НАВИГАЦИЯ -->
-    <nav class="navbar">
-        <div class="container nav-content">
+    <nav class="navbar glass">
+        <div class="container nav-row">
             <div class="logo">
-                <div class="logo-symbol"></div>
-                <span class="logo-text">ПроАктив</span>
+                <div class="logo-icon">P</div>
+                <span>ПроАктив</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#product">Продукт</a></li>
-                <li><a href="#features">Решения</a></li>
-                <li><a href="#how-it-works">Как это работает</a></li>
-                <li><a href="#pricing">Тарифы</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="#login" class="link-login">Войти</a>
-                <a href="#contact" class="btn btn-primary btn-sm btn-glow">Запросить демо</a>
+            <div class="nav-links hidden-mobile">
+                <a href="#demo">Обзор продукта</a>
+                <a href="#features">Возможности</a>
+                <a href="#pricing">Цены</a>
             </div>
-            <div class="mobile-menu-btn">|||</div>
+            <a href="#contact" class="btn btn-primary">Запросить демо</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- ГЛАВНЫЙ ЭКРАН -->
     <header class="hero">
-        <div class="container hero-container">
-            <div class="hero-text fade-in-up">
-                <div class="badge-new">
-                    <span class="pulse-dot"></span> v4.4: Новый AI модуль
-                </div>
-                <h1>Цифровой двойник <br> <span class="gradient-text">вашего капитала</span></h1>
-                <p class="hero-subtitle">
-                    Единая платформа для управления коммерческой недвижимостью. 
-                    Мы объединили финансовый учет, эксплуатацию (FSM) и геоаналитику, 
-                    чтобы вы видели реальную эффективность каждого квадратного метра.
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">🔥 Версия 4.4 уже доступна</div>
+                <h1>Вся ваша недвижимость <br> <span class="text-gradient">как на ладони</span></h1>
+                <p class="hero-desc">
+                    Замените Excel и разрозненные отчеты на единую AI-платформу. 
+                    Финансы, эксплуатация и геоаналитика в одном окне браузера.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary btn-lg btn-glow">Начать пилотный проект</a>
-                    <a href="#features" class="btn btn-outline btn-lg">Смотреть тур</a>
+                <div class="hero-btns">
+                    <a href="#demo" class="btn btn-primary btn-lg">Смотреть интерфейс</a>
+                    <a href="#contact" class="btn btn-outline btn-lg">Связаться с нами</a>
                 </div>
-                <div class="trusted-by">
-                    <span>Нам доверяют управление 1.2 млн м²</span>
-                    <div class="logos-strip">
-                        <!-- Имитация логотипов -->
-                        <div class="co-logo">A-Group</div>
-                        <div class="co-logo">EstateCore</div>
-                        <div class="co-logo">CityTower</div>
-                        <div class="co-logo">RetailPRO</div>
+                
+                <div class="metrics-strip">
+                    <div class="metric">
+                        <strong>+15%</strong>
+                        <span>к ROI портфеля</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- СЛОЖНЫЙ МАКЕТ ИНТЕРФЕЙСА -->
-            <div class="hero-interface fade-in-up delay-200">
-                <div class="interface-glow"></div>
-                <div class="browser-window">
-                    <div class="browser-top">
-                        <div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-                        <div class="address-bar">pro-active.app/dashboard/portfolio</div>
+                    <div class="divider"></div>
+                    <div class="metric">
+                        <strong>30 мин</strong>
+                        <span>экономии в день</span>
                     </div>
-                    <div class="app-layout">
-                        <!-- Sidebar -->
-                        <div class="app-sidebar">
-                            <div class="nav-icon active">📊</div>
-                            <div class="nav-icon">🗺️</div>
-                            <div class="nav-icon">📁</div>
-                            <div class="nav-icon">⚙️</div>
-                            <div class="spacer"></div>
-                            <div class="nav-icon user-pic"></div>
-                        </div>
-                        <!-- Main -->
-                        <div class="app-main">
-                            <div class="app-header">
-                                <h3>Портфель "Москва-Сити"</h3>
-                                <div class="status-badge">Online</div>
-                            </div>
-                            <div class="dashboard-grid">
-                                <!-- Card 1 -->
-                                <div class="dash-card wide">
-                                    <div class="card-head">
-                                        <span>Выручка (YTD)</span>
-                                        <span class="trend up">+12.5%</span>
-                                    </div>
-                                    <div class="big-number">142.5 M₽</div>
-                                    <div class="mini-chart-lines">
-                                        <div class="bar" style="height: 40%"></div>
-                                        <div class="bar" style="height: 60%"></div>
-                                        <div class="bar" style="height: 85%"></div>
-                                        <div class="bar" style="height: 50%"></div>
-                                        <div class="bar" style="height: 70%"></div>
-                                        <div class="bar" style="height: 95%"></div>
-                                        <div class="bar highlight" style="height: 100%"></div>
-                                    </div>
-                                </div>
-                                <!-- Card 2 -->
-                                <div class="dash-card">
-                                    <div class="card-head"><span>Заполняемость</span></div>
-                                    <div class="pie-chart-mock">
-                                        <svg viewBox="0 0 32 32"><circle r="16" cx="16" cy="16" style="stroke-dasharray: 85 100;"></circle></svg>
-                                        <span class="pie-text">98%</span>
-                                    </div>
-                                </div>
-                                <!-- Card 3 (AI Alert) -->
-                                <div class="dash-card alert-card">
-                                    <div class="ai-icon-pulse">🤖</div>
-                                    <h4>AI Инсайт</h4>
-                                    <p>Обнаружен перерасход Э/Э на объекте "Склад Б". Риск +15% к OPEX.</p>
-                                    <div class="btn-xs">Детали</div>
-                                </div>
-                                <!-- Map Area -->
-                                <div class="dash-card map-area">
-                                    <div class="map-dots">
-                                        <div class="map-pin p1"></div>
-                                        <div class="map-pin p2"></div>
-                                        <div class="map-pin p3"></div>
-                                    </div>
-                                    <div class="map-overlay">Геоаналитика</div>
-                                </div>
-                                <!-- Table -->
-                                <div class="dash-card table-area">
-                                    <div class="fake-row header-row"></div>
-                                    <div class="fake-row"></div>
-                                    <div class="fake-row"></div>
-                                    <div class="fake-row"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="divider"></div>
+                    <div class="metric">
+                        <strong>0%</strong>
+                        <span>ошибок ввода</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- BENTO GRID FEATURES -->
-    <section id="features" class="section">
+    <!-- ИНТЕРАКТИВНОЕ ДЕМО ПРОДУКТА -->
+    <section id="demo" class="product-showcase">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2>Больше, чем просто CRM</h2>
-                <p>Технологический стек, который заменяет аналитический отдел.</p>
+            <div class="section-title">
+                <h2>Интерфейс, в котором хочется работать</h2>
+                <p>Переключайтесь между вкладками, чтобы увидеть возможности системы.</p>
             </div>
-            
-            <div class="bento-grid">
-                <!-- Large Feature -->
-                <div class="bento-card large glass fade-in">
-                    <div class="card-content">
-                        <h3>Smart Upload</h3>
-                        <p>Наш AI распознает сканы договоров, счетов и актов. Данные автоматически разносятся по статьям расходов (CAPEX/OPEX) без участия бухгалтера.</p>
-                        <div class="feature-tag">OCR + LLM</div>
+
+            <!-- Табы переключения -->
+            <div class="tabs-wrapper">
+                <button class="tab-btn active" data-tab="dashboard">📊 Дашборд</button>
+                <button class="tab-btn" data-tab="map">🗺️ Геоаналитика</button>
+                <button class="tab-btn" data-tab="docs">📄 AI Документы</button>
+            </div>
+
+            <!-- Окно приложения -->
+            <div class="app-window glass">
+                <!-- Шапка окна -->
+                <div class="window-header">
+                    <div class="window-controls">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
                     </div>
-                    <div class="visual-upload">
-                        <div class="doc-file">📄 Счет.pdf</div>
-                        <div class="arrow">➔</div>
-                        <div class="db-entry">✅ Запись создана</div>
+                    <div class="address-bar">app.proactive.com/portfolio</div>
+                </div>
+
+                <!-- Тело приложения -->
+                <div class="window-body">
+                    <!-- Сайдбар (постоянный) -->
+                    <div class="app-sidebar">
+                        <div class="sidebar-item active">Обзор</div>
+                        <div class="sidebar-item">Объекты</div>
+                        <div class="sidebar-item">Финансы</div>
+                        <div class="sidebar-item">Заявки</div>
+                        <div class="sidebar-item mt-auto">Настройки</div>
                     </div>
-                </div>
 
-                <!-- Medium Feature -->
-                <div class="bento-card medium glass fade-in">
-                    <div class="icon-3d">💰</div>
-                    <h3>Финансы</h3>
-                    <p>P&L, Cashflow, NOI, ROI. <br> В реальном времени.</p>
-                </div>
-
-                <!-- Medium Feature -->
-                <div class="bento-card medium glass fade-in">
-                    <div class="icon-3d">🛠️</div>
-                    <h3>FSM Модуль</h3>
-                    <p>Управление заявками на ремонт. QR-коды для оборудования.</p>
-                </div>
-
-                <!-- Wide Feature -->
-                <div class="bento-card wide glass fade-in">
-                    <div class="card-content">
-                        <h3>Геоаналитика 360°</h3>
-                        <p>Обогащение данных из открытых источников (OSM, ГИС). Мы анализируем конкурентов, пешеходный трафик и инфраструктуру вокруг, чтобы вы знали справедливую ставку аренды.</p>
-                    </div>
-                    <div class="visual-map">
-                        <!-- CSS Map Grid -->
-                        <div class="grid-lines"></div>
-                        <div class="radar-scan"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="section steps-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Как это работает</h2>
-            </div>
-            <div class="steps-container">
-                <div class="step-card fade-in">
-                    <div class="step-num">01</div>
-                    <h4>Подключение</h4>
-                    <p>Импортируйте реестр объектов через Excel или интеграцию с 1С.</p>
-                </div>
-                <div class="step-card fade-in">
-                    <div class="step-num">02</div>
-                    <h4>Сбор данных</h4>
-                    <p>Загрузите документы. AI обработает историю и создаст базу знаний.</p>
-                </div>
-                <div class="step-card fade-in">
-                    <div class="step-num">03</div>
-                    <h4>Контроль</h4>
-                    <p>Получайте алерты об аномалиях и управляйте портфелем с телефона.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRICING -->
-    <section id="pricing" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Тарифы</h2>
-            </div>
-            <div class="pricing-grid">
-                <div class="price-card glass fade-in">
-                    <h3>Старт</h3>
-                    <div class="price">0 ₽<span>/мес</span></div>
-                    <p>Для одного объекта. Базовый функционал.</p>
-                    <ul class="features-list">
-                        <li>1 объект</li>
-                        <li>Ручной ввод данных</li>
-                        <li>Базовая аналитика</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-outline full-width">Попробовать</a>
-                </div>
-                <div class="price-card glass featured fade-in">
-                    <div class="best-value">Выбор профи</div>
-                    <h3>Бизнес</h3>
-                    <div class="price">По запросу</div>
-                    <p>Для управляющих компаний и фондов.</p>
-                    <ul class="features-list">
-                        <li>Неограниченно объектов</li>
-                        <li>AI Smart Upload (500 док.)</li>
-                        <li>Геоаналитика</li>
-                        <li>Личный менеджер</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary full-width">Обсудить условия</a>
-                </div>
-                <div class="price-card glass fade-in">
-                    <h3>Enterprise</h3>
-                    <div class="price">Индивидуально</div>
-                    <p>Для крупных девелоперов.</p>
-                    <ul class="features-list">
-                        <li>On-Premise установка</li>
-                        <li>Кастомные доработки</li>
-                        <li>SLA 99.9%</li>
-                        <li>Интеграция с SAP/1C</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-outline full-width">Связаться</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT (CTA) -->
-    <section id="contact" class="section cta-section">
-        <div class="container">
-            <div class="cta-box glass">
-                <div class="cta-content">
-                    <h2>Готовы перевести активы на автопилот?</h2>
-                    <p>Оставьте заявку на демонстрацию. Покажем, как ПроАктив найдет скрытую прибыль в вашем портфеле уже в первый месяц.</p>
-                    <form id="leadForm" class="tech-form">
-                        <div class="input-row">
-                            <input type="text" placeholder="Имя" required>
-                            <input type="email" placeholder="Корпоративный Email" required>
+                    <!-- ЭКРАН 1: ДАШБОРД (Активный по умолчанию) -->
+                    <div class="app-content active" id="dashboard">
+                        <div class="content-header">
+                            <h3>Сводка по портфелю</h3>
+                            <div class="date-picker">Сентябрь 2024 ▾</div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg full-width btn-glow">Записаться на демо</button>
-                    </form>
+                        <div class="dashboard-grid">
+                            <div class="kpi-card">
+                                <small>Выручка</small>
+                                <div class="value">14.2 M₽</div>
+                                <div class="trend positive">↗ 12% к прошлому мес.</div>
+                            </div>
+                            <div class="kpi-card">
+                                <small>Чистая прибыль</small>
+                                <div class="value">4.8 M₽</div>
+                                <div class="trend positive">↗ 5% к плану</div>
+                            </div>
+                            <div class="kpi-card">
+                                <small>Загрузка площадей</small>
+                                <div class="value">96%</div>
+                                <div class="trend neutral">→ Без изменений</div>
+                            </div>
+                            
+                            <!-- График (имитация) -->
+                            <div class="chart-card wide">
+                                <h4>Динамика Cashflow</h4>
+                                <div class="fake-chart">
+                                    <div class="bar" style="height: 40%"></div>
+                                    <div class="bar" style="height: 60%"></div>
+                                    <div class="bar" style="height: 30%"></div>
+                                    <div class="bar" style="height: 80%"></div>
+                                    <div class="bar" style="height: 55%"></div>
+                                    <div class="bar" style="height: 90%"></div>
+                                    <div class="bar active" style="height: 75%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Таблица -->
+                            <div class="table-card wide">
+                                <h4>Последние транзакции</h4>
+                                <div class="fake-table">
+                                    <div class="ft-row header">
+                                        <span>Дата</span><span>Категория</span><span>Сумма</span><span>Статус</span>
+                                    </div>
+                                    <div class="ft-row">
+                                        <span>01.09</span><span>Аренда (Офис А)</span><span>+450 000 ₽</span><span class="badge green">Ок</span>
+                                    </div>
+                                    <div class="ft-row">
+                                        <span>02.09</span><span>Клининг</span><span>-25 000 ₽</span><span class="badge gray">Оплачено</span>
+                                    </div>
+                                    <div class="ft-row">
+                                        <span>03.09</span><span>Ремонт HVAC</span><span>-120 000 ₽</span><span class="badge yellow">В обр.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ЭКРАН 2: КАРТА -->
+                    <div class="app-content" id="map">
+                        <div class="content-header">
+                            <h3>Географический анализ</h3>
+                            <button class="btn-sm">Фильтр слоев</button>
+                        </div>
+                        <div class="map-container">
+                            <!-- Сетка карты -->
+                            <div class="map-grid"></div>
+                            <!-- Точки на карте -->
+                            <div class="map-pin p1 tooltip" data-tip="ТЦ Плаза: 4500 м²"></div>
+                            <div class="map-pin p2 tooltip" data-tip="Склад Север: 1200 м²"></div>
+                            <div class="map-pin p3 tooltip" data-tip="Офис Центр: 800 м²"></div>
+                            
+                            <!-- Панель деталей -->
+                            <div class="map-overlay-panel">
+                                <h5>ТЦ Плаза</h5>
+                                <p>Пешеходный трафик: <strong class="text-green">Высокий</strong></p>
+                                <p>Конкуренты в радиусе 500м: <strong>3</strong></p>
+                                <div class="mini-bar-chart">
+                                    <div class="mb-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ЭКРАН 3: ДОКУМЕНТЫ (AI) -->
+                    <div class="app-content" id="docs">
+                        <div class="content-header">
+                            <h3>Smart Upload (AI)</h3>
+                            <div class="status-indicator">
+                                <span class="status-dot animate"></span> AI активен
+                            </div>
+                        </div>
+                        <div class="docs-split">
+                            <!-- Зона загрузки -->
+                            <div class="upload-zone">
+                                <div class="file-preview">
+                                    <div class="file-icon">PDF</div>
+                                    <div class="file-name">Счет_Электричество_Авг.pdf</div>
+                                </div>
+                                <div class="scan-line"></div> <!-- Анимация сканирования -->
+                            </div>
+                            
+                            <!-- Результат распознавания -->
+                            <div class="ai-result-panel">
+                                <h4>Результат распознавания</h4>
+                                <div class="field-group">
+                                    <label>Контрагент</label>
+                                    <input type="text" value='ПАО "МосЭнергоСбыт"' readonly>
+                                </div>
+                                <div class="field-group">
+                                    <label>Сумма</label>
+                                    <input type="text" value="142 500.00 ₽" readonly class="text-bold">
+                                </div>
+                                <div class="field-group">
+                                    <label>Категория (Авто)</label>
+                                    <div class="tag-ai">Коммунальные услуги / OPEX</div>
+                                </div>
+                                <button class="btn-confirm">Подтвердить и провести</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ПРЕИМУЩЕСТВА (Сетка) -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="grid-features">
+                <div class="feature-card glass">
+                    <div class="icon">🤖</div>
+                    <h3>Искусственный Интеллект</h3>
+                    <p>Больше ручного ввода. Загружайте сканы — система сама создаст проводки.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon">📈</div>
+                    <h3>Финансовая прозрачность</h3>
+                    <p>P&L и Cashflow строятся автоматически. Вы видите реальную рентабельность.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon">🛠️</div>
+                    <h3>Эксплуатация (FSM)</h3>
+                    <p>Управление заявками на ремонт. Инженеры получают задачи в мобильном приложении.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon">🔒</div>
+                    <h3>Безопасность</h3>
+                    <p>Данные шифруются. Ежедневные бэкапы. Разграничение прав доступа.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФОРМА -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper glass">
+                <div class="contact-text">
+                    <h2>Начните пилотный проект</h2>
+                    <p>Оставьте заявку, мы настроим систему под ваши объекты и покажем, где вы теряете деньги.</p>
+                    <ul class="check-list">
+                        <li>Бесплатный аудит данных</li>
+                        <li>Настройка за 3 дня</li>
+                        <li>Обучение команды</li>
+                    </ul>
+                </div>
+                <form id="leadForm" class="contact-form">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Рабочий Email" required>
+                    <input type="text" placeholder="Название компании">
+                    <button type="submit" class="btn btn-primary w-full">Отправить заявку</button>
+                    <p id="formStatus" class="status-msg"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <div class="container footer-content">
-            <div class="footer-col">
-                <div class="logo">ПроАктив</div>
-                <p class="copyright">&copy; 2025. Все права защищены.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Продукт</h4>
-                <a href="#">Возможности</a>
-                <a href="#">Безопасность</a>
-                <a href="#">Roadmap</a>
-            </div>
-            <div class="footer-col">
-                <h4>Компания</h4>
-                <a href="#">О нас</a>
-                <a href="#">Блог</a>
-                <a href="#">Контакты</a>
+        <div class="container footer-row">
+            <div class="copy">&copy; 2025 ПроАктив.</div>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">support@proactive.app</a>
             </div>
         </div>
     </footer>
